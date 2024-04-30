@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:projek/data/datasources/address_remote_datasource.dart';
 import 'package:projek/data/datasources/auth_remote_datasource.dart';
 import 'package:projek/data/datasources/product_remote_datasource.dart';
+import 'package:projek/data/datasources/rajaongkir_remote_datasource.dart';
+import 'package:projek/presentation/address/bloc/add_address/add_address_bloc.dart';
+import 'package:projek/presentation/address/bloc/address/address_bloc.dart';
+import 'package:projek/presentation/address/bloc/city/city_bloc.dart';
+import 'package:projek/presentation/address/bloc/province/province_bloc.dart';
+import 'package:projek/presentation/address/bloc/subdistrict/subdistrict_bloc.dart';
 import 'package:projek/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:projek/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:projek/presentation/home/bloc/all_product/all_product_bloc.dart';
@@ -50,6 +57,21 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => LogoutBloc(AuthRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => AddressBloc(AddressRemoteDataSource()),
+        ),
+        BlocProvider(
+          create: (context) => AddAddressBloc(AddressRemoteDataSource()),
+        ),
+        BlocProvider(
+          create: (context) => ProvinceBloc(RajaongkirRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => CityBloc(RajaongkirRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => SubdistrictBloc(RajaongkirRemoteDatasource()),
         ),
       ],
       child: MaterialApp.router(
