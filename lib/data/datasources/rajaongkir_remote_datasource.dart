@@ -8,7 +8,7 @@ import '../models/responses/province_response_model.dart';
 
 class RajaongkirRemoteDatasource {
   Future<Either<String, ProvinceResponseModel>> getProvinces() async {
-    final url = Uri.parse('https://api.rajaongkir.com/starter/province');
+    final url = Uri.parse('https://pro.rajaongkir.com/api/province');
     final response = await http.get(
       url,
       headers: {
@@ -26,7 +26,7 @@ class RajaongkirRemoteDatasource {
   Future<Either<String, CityResponseModel>> getCitiesByProvince(
       String provinceId) async {
     final url =
-        Uri.parse('https://api.rajaongkir.com/starter/city');
+        Uri.parse('https://pro.rajaongkir.com/api/city?province=$provinceId');
     final response = await http.get(
       url,
       headers: {
@@ -44,7 +44,7 @@ class RajaongkirRemoteDatasource {
   Future<Either<String, SubdistrictResponseModel>> getSubdistrictsByCity(
       String cityId) async {
     final url =
-        Uri.parse('https://api.rajaongkir.com/starter/cost');
+        Uri.parse('https://pro.rajaongkir.com/api/subdistrict?city=$cityId');
     final response = await http.get(
       url,
       headers: {

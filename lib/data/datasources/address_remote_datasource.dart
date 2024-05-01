@@ -14,6 +14,7 @@ class AddressRemoteDataSource {
         headers: {
           'Authorization': 'Bearer ${authData!.accessToken}',
           'Accept': 'application/json',
+          'Content-type': 'application/json',
         },
       );
       if (response.statusCode == 200) {

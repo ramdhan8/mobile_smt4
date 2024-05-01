@@ -21,7 +21,7 @@ class CityResponseModel {
 }
 
 class Rajaongkir {
-    final List<dynamic>? query;
+    final Query? query;
     final Status? status;
     final List<City>? results;
 
@@ -36,15 +36,35 @@ class Rajaongkir {
     String toJson() => json.encode(toMap());
 
     factory Rajaongkir.fromMap(Map<String, dynamic> json) => Rajaongkir(
-        query: json["query"] == null ? [] : List<dynamic>.from(json["query"]!.map((x) => x)),
+        query: json["query"] == null ? null : Query.fromMap(json["query"]),
         status: json["status"] == null ? null : Status.fromMap(json["status"]),
         results: json["results"] == null ? [] : List<City>.from(json["results"]!.map((x) => City.fromMap(x))),
     );
 
     Map<String, dynamic> toMap() => {
-        "query": query == null ? [] : List<dynamic>.from(query!.map((x) => x)),
+        "query": query?.toMap(),
         "status": status?.toMap(),
         "results": results == null ? [] : List<dynamic>.from(results!.map((x) => x.toMap())),
+    };
+}
+
+class Query {
+    final String? province;
+
+    Query({
+        this.province,
+    });
+
+    factory Query.fromJson(String str) => Query.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory Query.fromMap(Map<String, dynamic> json) => Query(
+        province: json["province"],
+    );
+
+    Map<String, dynamic> toMap() => {
+        "province": province,
     };
 }
 
@@ -86,6 +106,9 @@ class City {
         "city_name": cityName,
         "postal_code": postalCode,
     };
+
+    @override
+  String toString() => '$cityName';
 }
 
 class Status {
