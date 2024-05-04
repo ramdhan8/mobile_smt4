@@ -247,7 +247,7 @@ class _HomePageState extends State<HomePage> {
           BlocBuilder<CheckoutBloc, CheckoutState>(
             builder: (context, state) {
               return state.maybeWhen(
-                loaded: (checkout) {
+                loaded: (checkout, _, __, ___, ____, _____) {
                   final totalQuantity = checkout.fold<int>(
                     0,
                     (previousValue, element) =>

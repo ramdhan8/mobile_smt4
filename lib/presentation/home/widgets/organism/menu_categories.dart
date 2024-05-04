@@ -25,6 +25,7 @@ class _MenuCategoriesState extends State<MenuCategories> {
       builder: (context, state) {
         return state.maybeWhen(
           loaded: (categories) => Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ...categories.map(
                 (category) => Flexible(
@@ -38,6 +39,12 @@ class _MenuCategoriesState extends State<MenuCategories> {
             ],
           ),
           orElse: () => const SizedBox.shrink(),
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (message) => Center(
+            child: Text(message),
+          ),
         );
         //   return Row(
         //   children: [

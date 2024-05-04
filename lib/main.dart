@@ -16,6 +16,7 @@ import 'package:projek/presentation/home/bloc/all_product/all_product_bloc.dart'
 import 'package:projek/presentation/home/bloc/best_seller/best_seller_product_bloc.dart';
 import 'package:projek/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:projek/presentation/home/bloc/special_offer_product/special_offer_product_bloc.dart';
+import 'package:projek/presentation/order/bloc/cost/cost_bloc.dart';
 
 import 'core/constants/colors.dart';
 import 'core/router/app_router.dart';
@@ -72,6 +73,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SubdistrictBloc(RajaongkirRemoteDatasource()),
+        ),BlocProvider(
+          create: (context) => CostBloc(RajaongkirRemoteDatasource()),
         ),
       ],
       child: MaterialApp.router(

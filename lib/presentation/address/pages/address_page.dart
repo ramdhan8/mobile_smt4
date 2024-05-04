@@ -6,6 +6,7 @@ import '../../../core/components/buttons.dart';
 import '../../../core/components/spaces.dart';
 import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
+import '../../home/bloc/checkout/checkout_bloc.dart';
 import '../bloc/address/address_bloc.dart';
 import '../models/address_model.dart';
 import '../widgets/address_tile.dart';
@@ -79,35 +80,49 @@ class _AddressPageState extends State<AddressPage> {
             ),
           ),
           const SpaceHeight(20.0),
-         BlocBuilder<AddressBloc, AddressState>(
+          BlocBuilder<AddressBloc, AddressState>(
             builder: (context, state) {
               return state.maybeWhen(orElse: () {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }, loaded: (addresses) {
-                return ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: addresses.length,
-                  itemBuilder: (context, index) => AddressTile(
-                    isSelected: false,
-                    data: addresses[index],
-                    onTap: () {
-                      // selectedIndex = index;
-                      // setState(() {});
-                    },
-                    onEditTap: () {
-                      context.goNamed(
-                        RouteConstants.editAddress,
-                        pathParameters: PathParameters(
-                          rootTab: RootTab.order,
-                        ).toMap(),
-                        extra: addresses[index],
-                      );
-                    },
-                  ),
-                  separatorBuilder: (context, index) => const SpaceHeight(16.0),
+                return BlocBuilder<CheckoutBloc, CheckoutState>(
+                  builder: (context, state) {
+                    final addressId = state.maybeWhen(
+                      orElse: () => 0,
+                      loaded: (checkout, addressId, __, ___, ____, _____) {
+                        return addressId;
+                      },
+                    );
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: addresses.length,
+                      itemBuilder: (context, index) => AddressTile(
+                        isSelected: addressId == addresses[index].id,
+                        data: addresses[index],
+                        onTap: () {
+                          context.read<CheckoutBloc>().add(
+                                CheckoutEvent.addAddressId(
+                                  addresses[index].id!,
+                                ),
+                              );
+                        },
+                        onEditTap: () {
+                          context.goNamed(
+                            RouteConstants.editAddress,
+                            pathParameters: PathParameters(
+                              rootTab: RootTab.order,
+                            ).toMap(),
+                            extra: addresses[index],
+                          );
+                        },
+                      ),
+                      separatorBuilder: (context, index) =>
+                          const SpaceHeight(16.0),
+                    );
+                  },
                 );
               });
             },
@@ -141,11 +156,26 @@ class _AddressPageState extends State<AddressPage> {
                     fontSize: 16.0,
                   ),
                 ),
-                Text(
-                  20000.currencyFormatRp,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                  ),
+                BlocBuilder<CheckoutBloc, CheckoutState>(
+                  builder: (context, state) {
+                    final subtotal = state.maybeWhen(
+                      orElse: () => 0,
+                      loaded: (checkout, _, __, ___, ____, _____) {
+                        return checkout.fold<int>(
+                          0,
+                          (previousValue, element) =>
+                              previousValue +
+                              (element.quantity * element.product.price!),
+                        );
+                      },
+                    );
+                    return Text(
+                      subtotal.currencyFormatRp,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

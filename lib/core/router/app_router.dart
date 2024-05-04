@@ -12,6 +12,8 @@ import '../../presentation/home/pages/dashboard_page.dart';
 import '../../presentation/intro/splash_page.dart';
 import '../../presentation/order/pages/cart_page.dart';
 import '../../presentation/order/pages/order_detail_page.dart';
+import '../../presentation/order/pages/payment_detail_page.dart';
+import '../../presentation/order/pages/payment_waiting_page.dart';
 
 // import '../../../ui/address/models/address_model.dart';
 // import '../../../ui/address/pages/add_address_page.dart';
@@ -75,6 +77,20 @@ class AppRouter {
                   name: RouteConstants.orderDetail,
                   path: RouteConstants.orderDetailPath,
                   builder: (context, state) => const OrderDetailPage(),
+                  routes: [
+                  GoRoute(
+                    name: RouteConstants.paymentDetail,
+                    path: RouteConstants.paymentDetailPath,
+                    builder: (context, state) => const PaymentDetailPage(),
+                    routes: [
+                      GoRoute(
+                        name: RouteConstants.paymentWaiting,
+                        path: RouteConstants.paymentWaitingPath,
+                        builder: (context, state) => const PaymentWaitingPage(),
+                      ),
+                    ],
+                  ),
+                ],
                   // routes: [
                   //   GoRoute(
                   //     name: RouteConstants.paymentDetail,
