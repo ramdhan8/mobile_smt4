@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:projek/presentation/order/bloc/bloc/order_bloc.dart';
+import 'package:projek/presentation/order/models/bank_account_model.dart';
 
 import '../../../core/components/buttons.dart';
 import '../../../core/components/spaces.dart';
@@ -9,9 +11,14 @@ import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
 import '../widgets/countdown_timer.dart';
 
-class PaymentWaitingPage extends StatelessWidget {
+class PaymentWaitingPage extends StatefulWidget {
   const PaymentWaitingPage({super.key});
 
+  @override
+  State<PaymentWaitingPage> createState() => _PaymentWaitingPageState();
+}
+
+class _PaymentWaitingPageState extends State<PaymentWaitingPage> {
   @override
   Widget build(BuildContext context) {
     void onTimerCompletion() {
@@ -124,18 +131,39 @@ class PaymentWaitingPage extends StatelessWidget {
             ],
           ),
           const SpaceHeight(20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'BRI Virtual Account',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Assets.images.banks.bRIDirectDebit.image(height: 18.0),
-            ],
+          BlocBuilder<OrderBloc, OrderState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () {
+                  return const SizedBox();
+                },
+                loaded: (orderResponseModel) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        banks
+                            .where((element) =>
+                                element.code ==
+                                orderResponseModel.order!.paymentVaName!)
+                            .first
+                            .name,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Image.asset(banks
+                          .where((element) =>
+                              element.code ==
+                              orderResponseModel.order!.paymentVaName!)
+                          .first
+                          .image),
+                    ],
+                  );
+                },
+              );
+            },
           ),
           const SpaceHeight(14.0),
           const Divider(),
@@ -143,22 +171,34 @@ class PaymentWaitingPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
+               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                 const Text(
                     'No Virtual Account',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  Text(
-                    '12345678910',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  BlocBuilder<OrderBloc, OrderState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        orElse: () {
+                          return const SizedBox();
+                        },
+                        loaded: (orderResponseModel) {
+                          return Text(
+                            orderResponseModel.order!.paymentVaNumber!,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          );
+                        },
+                      );
+                      
+                    },
                   ),
                 ],
               ),

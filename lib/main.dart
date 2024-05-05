@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:projek/data/datasources/address_remote_datasource.dart';
 import 'package:projek/data/datasources/auth_remote_datasource.dart';
+import 'package:projek/data/datasources/order_remote_datasource.dart';
 import 'package:projek/data/datasources/product_remote_datasource.dart';
 import 'package:projek/data/datasources/rajaongkir_remote_datasource.dart';
 import 'package:projek/presentation/address/bloc/add_address/add_address_bloc.dart';
@@ -16,7 +17,9 @@ import 'package:projek/presentation/home/bloc/all_product/all_product_bloc.dart'
 import 'package:projek/presentation/home/bloc/best_seller/best_seller_product_bloc.dart';
 import 'package:projek/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:projek/presentation/home/bloc/special_offer_product/special_offer_product_bloc.dart';
+import 'package:projek/presentation/order/bloc/bloc/order_bloc.dart';
 import 'package:projek/presentation/order/bloc/cost/cost_bloc.dart';
+//import 'package:projek/presentation/order/bloc/order/order_bloc.dart';
 
 import 'core/constants/colors.dart';
 import 'core/router/app_router.dart';
@@ -75,6 +78,8 @@ class MyApp extends StatelessWidget {
           create: (context) => SubdistrictBloc(RajaongkirRemoteDatasource()),
         ),BlocProvider(
           create: (context) => CostBloc(RajaongkirRemoteDatasource()),
+        ),BlocProvider(
+          create: (context) => OrderBloc(OrderRemoteDatasource()),
         ),
       ],
       child: MaterialApp.router(

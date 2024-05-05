@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projek/presentation/home/bloc/checkout/checkout_bloc.dart';
+import 'package:projek/presentation/order/bloc/bloc/order_bloc.dart';
+//import 'package:projek/presentation/order/bloc/order/order_bloc.dart';
 
 import '../../../core/components/buttons.dart';
 import '../../../core/components/spaces.dart';
 import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
+import '../../home/models/product_quantity.dart';
 import '../models/bank_account_model.dart';
 import '../widgets/countdown_timer.dart';
 import '../widgets/payment_method.dart';
@@ -15,23 +20,7 @@ class PaymentDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedPayment = ValueNotifier<int>(0);
-    final banks = [
-      BankAccountModel(
-        code: 110,
-        name: 'BRI Virtual Account',
-        image: Assets.images.banks.bRIDirectDebit.path,
-      ),
-      BankAccountModel(
-        code: 111,
-        name: 'BCA Virtual Account',
-        image: Assets.images.banks.bca.path,
-      ),
-      BankAccountModel(
-        code: 112,
-        name: 'Bank Mandiri',
-        image: Assets.images.banks.mandiri.path,
-      ),
-    ];
+    
 
     List<BankAccountModel> banksLimit = [banks[0], banks[1]];
 
@@ -89,11 +78,11 @@ class PaymentDetailPage extends StatelessWidget {
                       isActive: value == banks[index].code,
                       data: banks[index],
                       onTap: () {
-                        selectedPayment.value = banks[index].code;
-                        if (banksLimit.first != banks[index]) {
-                          banksLimit[1] = banks[index];
-                        }
-                        context.pop();
+                        // selectedPayment.value = banks[index].code;
+                        // if (banksLimit.first != banks[index]) {
+                        //   banksLimit[1] = banks[index];
+                        // }
+                        // context.pop();
                       },
                     ),
                     separatorBuilder: (context, index) =>
@@ -200,24 +189,24 @@ class PaymentDetailPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20.0),
         children: [
-          Row(
-            children: [
-              const Icon(Icons.schedule),
-              const SpaceWidth(12.0),
-              const Flexible(
-                child: Text(
-                  'Selesaikan Pembayaran Dalam',
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              const SpaceWidth(12.0),
-              CountdownTimer(
-                minute: 120,
-                onTimerCompletion: () {},
-              ),
-            ],
-          ),
-          const SpaceHeight(30.0),
+          // Row(
+          //   children: [
+          //     const Icon(Icons.schedule),
+          //     const SpaceWidth(12.0),
+          //     const Flexible(
+          //       child: Text(
+          //         'Selesaikan Pembayaran Dalam',
+          //         overflow: TextOverflow.ellipsis,
+          //       ),
+          //     ),
+          //     const SpaceWidth(12.0),
+          //     CountdownTimer(
+          //       minute: 120,
+          //       onTimerCompletion: () {},
+          //     ),
+          //   ],
+          // ),
+          // const SpaceHeight(30.0),
           Row(
             children: [
               const Text(
@@ -242,20 +231,33 @@ class PaymentDetailPage extends StatelessWidget {
             ],
           ),
           const SpaceHeight(20.0),
-          ValueListenableBuilder(
-            valueListenable: selectedPayment,
-            builder: (context, value, _) => ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => PaymentMethod(
-                isActive: value == banksLimit[index].code,
-                data: banksLimit[index],
-                onTap: () => selectedPayment.value = banksLimit[index].code,
-              ),
-              separatorBuilder: (context, index) => const SpaceHeight(14.0),
-              itemCount: banksLimit.length,
-            ),
+          BlocBuilder<CheckoutBloc, CheckoutState>(
+            builder: (context, state) {
+              final paymentVaName = state.maybeWhen(
+                orElse: () => '',
+                loaded: (_, __, ___, ____, _____, paymentVaName) =>
+                    paymentVaName,
+              );
+              return ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => PaymentMethod(
+                  isActive: paymentVaName == banksLimit[index].code,
+                  data: banksLimit[index],
+                  onTap: () {
+                    context.read<CheckoutBloc>().add(
+                          CheckoutEvent.addPaymentMethod(
+                            banksLimit[index].code,
+                          ),
+                        );
+                  },
+                ),
+                separatorBuilder: (context, index) => const SpaceHeight(14.0),
+                itemCount: banksLimit.length,
+              );
+            },
           ),
+
           const SpaceHeight(36.0),
           const Divider(),
           const SpaceHeight(8.0),
@@ -276,11 +278,25 @@ class PaymentDetailPage extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Text(
-                375000.currencyFormatRp,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CheckoutBloc, CheckoutState>(
+                builder: (context, state) {
+                  final subtotal = state.maybeWhen(
+                    orElse: () => 0,
+                    loaded: (products, _, __, ___, ____, ______) =>
+                        products.fold<int>(
+                      0,
+                      (previousValue, element) =>
+                          previousValue +
+                          (element.product.price! * element.quantity),
+                    ),
+                  );
+                  return Text(
+                    subtotal.currencyFormatRp,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -288,17 +304,26 @@ class PaymentDetailPage extends StatelessWidget {
           Row(
             children: [
               const Text(
-                'Biaya Layanan',
+                'Biaya Kirim',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const Spacer(),
-              Text(
-                2000.currencyFormatRp,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CheckoutBloc, CheckoutState>(
+                builder: (context, state) {
+                  final shippingCost = state.maybeWhen(
+                    orElse: () => 0,
+                    loaded: (_, __, ___, ____, shippingCost, ______) =>
+                        shippingCost,
+                  );
+                  return Text(
+                    shippingCost.currencyFormatRp,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -314,27 +339,99 @@ class PaymentDetailPage extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Text(
-                377000.currencyFormatRp,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CheckoutBloc, CheckoutState>(
+                builder: (context, state) {
+                  final total = state.maybeWhen(
+                    orElse: () => 0,
+                    loaded: (products, _, __, ___, shippingCost, ______) =>
+                        products.fold<int>(
+                          0,
+                          (previousValue, element) =>
+                              previousValue +
+                              (element.product.price! * element.quantity),
+                        ) +
+                        shippingCost,
+                  );
+                  return Text(
+                    total.currencyFormatRp,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
           const SpaceHeight(20.0),
-          ValueListenableBuilder(
-            valueListenable: selectedPayment,
-            builder: (context, value, _) => Button.filled(
-              disabled: value == 0,
-              onPressed: () {
-                context.pushNamed(
-                  RouteConstants.paymentWaiting,
-                  pathParameters: PathParameters().toMap(),
-                );
-              },
-              label: 'Bayar Sekarang',
-            ),
+          BlocBuilder<CheckoutBloc, CheckoutState>(
+            builder: (context, state) {
+              final paymentMethod = state.maybeWhen(
+                orElse: () => '',
+                loaded: (_, __, paymentMethod, ___, ____, ______) =>
+                    paymentMethod,
+              );
+              final shippingService = state.maybeWhen(
+                orElse: () => '',
+                loaded: (_, __, ___, shippingService, ____, ______) =>
+                    shippingService,
+              );
+
+              final shippingCost = state.maybeWhen(
+                orElse: () => 0,
+                loaded: (_, __, ___, ____, shippingCost, ______) =>
+                    shippingCost,
+              );
+
+              final paymentVaName = state.maybeWhen(
+                orElse: () => '',
+                loaded: (_, __, ___, ____, _____, paymentVaName) =>
+                    paymentVaName,
+              );
+
+              final products = state.maybeWhen(
+                orElse: () => [],
+                loaded: (products, _, __, ___, ____, ______) => products,
+              );
+
+              final addressId = state.maybeWhen(
+                orElse: () => 0,
+                loaded: (_, addressId, __, ___, ____, ______) => addressId,
+              );
+              return BlocListener<OrderBloc, OrderState>(
+                listener: (context, state) {
+                   state.maybeWhen(
+                    orElse: () {},
+                    loaded: (orderResponseModel) {
+                      context.pushNamed(
+                        RouteConstants.paymentWaiting,
+                        pathParameters: PathParameters().toMap(),
+                      );
+                    },
+                    error: (message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: AppColors.red,
+                          content: Text(message),
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: Button.filled(
+                  disabled: paymentMethod == '',
+                  onPressed: () {
+                    context.read<OrderBloc>().add(OrderEvent.doOrder(
+                        addressId: addressId,
+                        paymentMethod: paymentMethod,
+                        shippingService: shippingService,
+                        shippingCost: shippingCost,
+                        paymentVaName: paymentVaName,
+                        products: products as List<ProductQuantity>));
+                  },
+                  label: 'Bayar Sekarang',
+                ),
+              );
+            },
           ),
         ],
       ),
