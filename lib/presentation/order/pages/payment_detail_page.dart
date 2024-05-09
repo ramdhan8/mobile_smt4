@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projek/presentation/home/bloc/checkout/checkout_bloc.dart';
-import 'package:projek/presentation/order/bloc/bloc/order_bloc.dart';
+import 'package:projek/presentation/order/bloc/order/order_bloc.dart';
 //import 'package:projek/presentation/order/bloc/order/order_bloc.dart';
 
 import '../../../core/components/buttons.dart';
@@ -405,6 +405,7 @@ class PaymentDetailPage extends StatelessWidget {
                       context.pushNamed(
                         RouteConstants.paymentWaiting,
                         pathParameters: PathParameters().toMap(),
+                        extra: orderResponseModel.order!.id,
                       );
                     },
                     error: (message) {

@@ -86,7 +86,10 @@ class AppRouter {
                       GoRoute(
                         name: RouteConstants.paymentWaiting,
                         path: RouteConstants.paymentWaitingPath,
-                        builder: (context, state) => const PaymentWaitingPage(),
+                        builder: (context, state) {
+                          final args = state.extra as int;
+                          return PaymentWaitingPage(orderId: args);
+                        },
                       ),
                     ],
                   ),

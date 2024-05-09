@@ -17,8 +17,9 @@ import 'package:projek/presentation/home/bloc/all_product/all_product_bloc.dart'
 import 'package:projek/presentation/home/bloc/best_seller/best_seller_product_bloc.dart';
 import 'package:projek/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:projek/presentation/home/bloc/special_offer_product/special_offer_product_bloc.dart';
-import 'package:projek/presentation/order/bloc/bloc/order_bloc.dart';
 import 'package:projek/presentation/order/bloc/cost/cost_bloc.dart';
+import 'package:projek/presentation/order/bloc/order/order_bloc.dart';
+import 'package:projek/presentation/order/bloc/status_order/status_order_bloc.dart';
 //import 'package:projek/presentation/order/bloc/order/order_bloc.dart';
 
 import 'core/constants/colors.dart';
@@ -80,7 +81,10 @@ class MyApp extends StatelessWidget {
           create: (context) => CostBloc(RajaongkirRemoteDatasource()),
         ),BlocProvider(
           create: (context) => OrderBloc(OrderRemoteDatasource()),
+        ),BlocProvider(
+          create: (context) => StatusOrderBloc(OrderRemoteDatasource()),
         ),
+
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

@@ -108,5 +108,9 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
           currentState.paymentMethod));
     });
 
+    //on started
+    on<_Started>((event, emit) {
+      emit(const _Loaded([], 0, '', '', 0, ''));
+    });
   }
 }
