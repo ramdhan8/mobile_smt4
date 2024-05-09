@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457058158077",
+    "project_id": "onlineshop-cd320",
+    "storage_bucket": "onlineshop-cd320.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457058158077:android:edebc666e2112442460594",
+        "android_client_info": {
+          "package_name": "com.example.projek"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQFMQJ1WXFswCD9pKdl5hmn476U_zhBPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

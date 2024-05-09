@@ -25,9 +25,18 @@ import 'package:projek/presentation/order/bloc/status_order/status_order_bloc.da
 import 'core/constants/colors.dart';
 import 'core/router/app_router.dart';
 import 'data/datasources/category_remote_datasouce.dart';
+import 'data/datasources/firebase_messanging_remote_datasource.dart';
 import 'presentation/home/bloc/category/category_bloc.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
+await FirebaseMessagingRemoteDatasource().initialize();
   runApp(const MyApp());
 }
 
