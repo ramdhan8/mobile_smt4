@@ -18,8 +18,11 @@ import 'package:projek/presentation/home/bloc/best_seller/best_seller_product_bl
 import 'package:projek/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:projek/presentation/home/bloc/special_offer_product/special_offer_product_bloc.dart';
 import 'package:projek/presentation/order/bloc/cost/cost_bloc.dart';
+import 'package:projek/presentation/order/bloc/history_order/history_order_bloc.dart';
 import 'package:projek/presentation/order/bloc/order/order_bloc.dart';
+import 'package:projek/presentation/order/bloc/order_detail/order_detail_bloc.dart';
 import 'package:projek/presentation/order/bloc/status_order/status_order_bloc.dart';
+import 'package:projek/presentation/order/bloc/tracking/tracking_bloc.dart';
 //import 'package:projek/presentation/order/bloc/order/order_bloc.dart';
 
 import 'core/constants/colors.dart';
@@ -88,10 +91,18 @@ class MyApp extends StatelessWidget {
           create: (context) => SubdistrictBloc(RajaongkirRemoteDatasource()),
         ),BlocProvider(
           create: (context) => CostBloc(RajaongkirRemoteDatasource()),
-        ),BlocProvider(
+        ),
+        BlocProvider(
+          create: (context) => TrackingBloc(RajaongkirRemoteDatasource()),
+        ),
+        BlocProvider(
           create: (context) => OrderBloc(OrderRemoteDatasource()),
         ),BlocProvider(
           create: (context) => StatusOrderBloc(OrderRemoteDatasource()),
+        ),BlocProvider(
+          create: (context) => HistoryOrderBloc(OrderRemoteDatasource()),
+        ),BlocProvider(
+          create: (context) => OrderDetailBloc(OrderRemoteDatasource()),
         ),
 
       ],

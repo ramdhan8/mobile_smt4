@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:projek/data/models/responses/city_response_model.dart';
 import 'package:projek/data/models/responses/cost_response_model.dart';
 import 'package:projek/data/models/responses/subdistrict_response_model.dart';
+import 'package:projek/data/models/responses/tracking_response_model.dart';
 import '../../core/constants/variables.dart';
 import '../models/responses/province_response_model.dart';
 
@@ -77,6 +78,27 @@ class RajaongkirRemoteDatasource {
     );
     if (response.statusCode == 200) {
       return right(CostResponseModel.fromJson(response.body));
+    } else {
+      return left('Error');
+    }
+  }
+
+  //tracking
+  Future<Either<String, TrackingResponseModel>> getWaybill(
+      String courier, String waybill) async {
+    final url = Uri.parse('https://pro.rajaongkir.com/api/waybill');
+    final response = await http.post(
+      url,
+      headers: {
+        'key': Variables.rajaOngkirKey,
+      },
+      body: {
+        'waybill': waybill,
+        'courier': courier,
+      },
+    );
+    if (response.statusCode == 200) {
+      return right(TrackingResponseModel.fromJson(response.body));
     } else {
       return left('Error');
     }

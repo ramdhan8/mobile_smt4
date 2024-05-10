@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projek/presentation/account/account_page.dart';
 import 'package:projek/presentation/home/pages/logout_page.dart';
 
 import '../../../core/assets/assets.gen.dart';
@@ -32,7 +33,7 @@ class _DashboardPageState extends State<DashboardPage> {
     const Center(
       child: Text('This Page 3'),
     ),
-    const LogoutPage()
+    const AccountPage(),
   ];
 
   void _onItemTapped(int index) {

@@ -8,6 +8,7 @@ import '../../../core/components/buttons.dart';
 import '../../../core/components/spaces.dart';
 import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
+import '../../../data/datasources/firebase_messanging_remote_datasource.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -82,8 +83,9 @@ class _LoginPageState extends State<LoginPage> {
             listener: (context, state) {
               state.maybeWhen(
                 orElse: () {},
-                loaded: (data) {
+                loaded: (data) async{
                   AuthLocalDatasource().saveAuthData(data);
+                  await FirebaseMessagingRemoteDatasource().initialize();
                   context.goNamed(
                     RouteConstants.root,
                     pathParameters: PathParameters().toMap(),
