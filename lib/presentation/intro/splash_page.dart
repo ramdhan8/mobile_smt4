@@ -17,16 +17,31 @@ class SplashPage extends StatelessWidget {
       ),
     );
 
-    return const Scaffold(
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(30.0),
-        child: Text(
-          'OnlineShop',
-          style: TextStyle(
-            color: AppColors.grey,
-            fontWeight: FontWeight.w600,
-          ),
-          textAlign: TextAlign.center,
+   return Scaffold(
+      backgroundColor: Colors.white, // Ubah sesuai kebutuhan Anda
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Image
+            Image.asset(
+              'assets/icons/logo.jpg', // Ubah dengan path gambar Anda
+              width: 71, // Ubah sesuai kebutuhan Anda
+            ),
+            SizedBox(height: 20),
+            // Text
+            Text(
+              'LUXESHOP',
+              style: TextStyle(
+                color: AppColors.grey,
+                fontWeight: FontWeight.w600,
+                fontSize: 24,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
+            // Your additional text or widgets can be added here
+          ],
         ),
       ),
     );

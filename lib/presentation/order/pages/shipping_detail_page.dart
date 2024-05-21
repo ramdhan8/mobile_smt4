@@ -98,7 +98,7 @@ class _ShippingDetailPageState extends State<ShippingDetailPage> {
   void initState() {
     context
         .read<TrackingBloc>()
-        .add(TrackingEvent.getTracking(widget.resi, 'jne'));
+        .add(TrackingEvent.getTracking(widget.resi, 'sicepat'));
     super.initState();
   }
 

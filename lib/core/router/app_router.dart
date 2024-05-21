@@ -9,6 +9,7 @@ import '../../presentation/address/pages/edit_address_page.dart';
 import '../../presentation/auth/pages/login_page.dart';
 import '../../presentation/auth/pages/register_page.dart';
 import '../../presentation/home/pages/dashboard_page.dart';
+import '../../presentation/home/pages/logout_page.dart';
 import '../../presentation/intro/splash_page.dart';
 import '../../presentation/order/pages/cart_page.dart';
 import '../../presentation/order/pages/history_order_page.dart';
@@ -48,6 +49,7 @@ class AppRouter {
         path: RouteConstants.splashPath,
         builder: (context, state) => const SplashPage(),
       ),
+      
       GoRoute(
         name: RouteConstants.login,
         path: RouteConstants.loginPath,
@@ -58,6 +60,7 @@ class AppRouter {
             path: RouteConstants.registerPath,
             builder: (context, state) => const RegisterPage(),
           ),
+          
         ],
       ),
       GoRoute(
@@ -76,6 +79,11 @@ class AppRouter {
               path: RouteConstants.orderListPath,
               builder: (context, state) => const HistoryOrderPage(),
             ),
+            GoRoute(
+            name: RouteConstants.logout,
+            path: RouteConstants.logoutPath,
+            builder: (context, state) => const LogoutPage(),
+          ),
           GoRoute(
               name: RouteConstants.cart,
               path: RouteConstants.cartPath,

@@ -53,7 +53,14 @@ class AccountPage extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              context.goNamed(
+                RouteConstants.orderList,
+                pathParameters: PathParameters(
+                  rootTab: RootTab.account,
+                ).toMap(),
+              );
+            },
           ),
           ListTile(
             leading: Assets.icons.creditcard.svg(),
@@ -78,7 +85,14 @@ class AccountPage extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              context.goNamed(
+                RouteConstants.logout,
+                pathParameters: PathParameters(
+                  rootTab: RootTab.account,
+                ).toMap(),
+              );
+            },
           ),
         ],
       ),

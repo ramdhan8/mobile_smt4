@@ -64,4 +64,8 @@ class RouteConstants {
   /// route for page [OrderPage]
   static const String orderList = 'order_list';
   static const String orderListPath = 'order_list';
+
+  /// route for page [LogoutPage]
+  static const String logout = 'logout';
+  static const String logoutPath = 'logout';
 }
