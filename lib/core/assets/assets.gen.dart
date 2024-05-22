@@ -39,6 +39,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/location.svg
   SvgGenImage get location => const SvgGenImage('assets/icons/location.svg');
 
+  /// File path: assets/icons/logo.jpg
+  AssetGenImage get logo => const AssetGenImage('assets/icons/logo.jpg');
+
   /// File path: assets/icons/notification.svg
   SvgGenImage get notification =>
       const SvgGenImage('assets/icons/notification.svg');
@@ -66,7 +69,7 @@ class $AssetsIconsGen {
   SvgGenImage get user => const SvgGenImage('assets/icons/user.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
+  List<dynamic> get values => [
         bag,
         cart,
         clock,
@@ -75,6 +78,7 @@ class $AssetsIconsGen {
         email,
         home,
         location,
+        logo,
         notification,
         order,
         password,

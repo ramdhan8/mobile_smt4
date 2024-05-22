@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:projek/presentation/home/bloc/all_product/all_product_bloc.dart';
 import 'package:projek/presentation/home/bloc/best_seller/best_seller_product_bloc.dart';
+import 'package:projek/presentation/home/bloc/fashion/fashion_bloc.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/search_input.dart';
@@ -225,6 +226,7 @@ class _HomePageState extends State<HomePage> {
     context
         .read<SpecialOfferProductBloc>()
         .add(const SpecialOfferProductEvent.getSpecialOfferProducts());
+    context.read<FashionBloc>().add(const FashionEvent.getFashion());
     super.initState();
   }
 
@@ -313,7 +315,7 @@ class _HomePageState extends State<HomePage> {
               return state.maybeWhen(
                 loaded: (products) {
                   return ProductList(
-                      title: 'Featured Product',
+                      title: 'All Product',
                       onSeeAllTap: () {},
                       items: products.length > 2
                           ? products.sublist(0, 2)
@@ -342,7 +344,7 @@ class _HomePageState extends State<HomePage> {
               return state.maybeWhen(
                 loaded: (products) {
                   return ProductList(
-                      title: 'Best Sellers',
+                      title: 'Sport',
                       onSeeAllTap: () {},
                       items: products.length > 2
                           ? products.sublist(0, 2)
@@ -377,6 +379,28 @@ class _HomePageState extends State<HomePage> {
                 loaded: (products) {
                   return ProductList(
                       title: 'Electronik',
+                      onSeeAllTap: () {},
+                      items: products.length > 2
+                          ? products.sublist(0, 2)
+                          : products);
+                },
+                orElse: () => const SizedBox.shrink(),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                error: (message) => Center(
+                  child: Text(message),
+                ),
+              );
+            },
+          ),
+          const SpaceHeight(50.0),
+          BlocBuilder<FashionBloc, FashionState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                loaded: (products) {
+                  return ProductList(
+                      title: 'Fashion',
                       onSeeAllTap: () {},
                       items: products.length > 2
                           ? products.sublist(0, 2)

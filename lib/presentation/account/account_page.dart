@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/core.dart';
 import '../../../core/router/app_router.dart';
+import '../auth/bloc/logout/logout_bloc.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -73,27 +75,45 @@ class AccountPage extends StatelessWidget {
             ),
             onTap: () {},
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.login_outlined,
-              color: AppColors.primary,
-            ),
-            title: const Text(
-              'Logout',
-              style: TextStyle(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            onTap: () {
-              context.goNamed(
-                RouteConstants.logout,
-                pathParameters: PathParameters(
-                  rootTab: RootTab.account,
-                ).toMap(),
-              );
+          BlocConsumer<LogoutBloc, LogoutState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                  orElse: () {},
+                  loaded: () {
+                    context.goNamed(
+                      RouteConstants.root,
+                      pathParameters: PathParameters().toMap(),
+                    );
+                  },
+                  error: (message) {
+                    context.goNamed(
+                      RouteConstants.login,
+                    );
+                  });
             },
-          ),
+            builder: (context, state) {
+              return state.maybeWhen(orElse: () {
+                return ListTile(
+                  leading: const Icon(
+                    Icons.login_outlined,
+                    color: AppColors.primary,
+                  ),
+                  title: const Text(
+                    'Logout',
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  onTap: () {
+                    context.read<LogoutBloc>().add(const LogoutEvent.logout());
+                  },
+                );
+              }, loading: () {
+                return const CircularProgressIndicator();
+              });
+            },
+          )
         ],
       ),
     );

@@ -16,6 +16,7 @@ import 'package:projek/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:projek/presentation/home/bloc/all_product/all_product_bloc.dart';
 import 'package:projek/presentation/home/bloc/best_seller/best_seller_product_bloc.dart';
 import 'package:projek/presentation/home/bloc/checkout/checkout_bloc.dart';
+import 'package:projek/presentation/home/bloc/fashion/fashion_bloc.dart';
 import 'package:projek/presentation/home/bloc/special_offer_product/special_offer_product_bloc.dart';
 import 'package:projek/presentation/order/bloc/cost/cost_bloc.dart';
 import 'package:projek/presentation/order/bloc/history_order/history_order_bloc.dart';
@@ -61,6 +62,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => BestSellerProductBloc(ProductRemoteDatasource()),
+        ),BlocProvider(
+          create: (context) => FashionBloc(ProductRemoteDatasource()),
         ),
         BlocProvider(
           create: (context) =>

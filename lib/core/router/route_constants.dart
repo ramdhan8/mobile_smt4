@@ -68,4 +68,8 @@ class RouteConstants {
   /// route for page [LogoutPage]
   static const String logout = 'logout';
   static const String logoutPath = 'logout';
+
+  // /// route for page [AllProduct]
+  // static const String allProduct = 'all_product';
+  // static const String allProductPath = 'all_product';
 }
