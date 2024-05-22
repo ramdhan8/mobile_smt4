@@ -18,14 +18,14 @@ import '../widgets/organism/product_list.dart';
 import '../widgets/title_content.dart';
 import 'package:badges/badges.dart' as badges;
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class AllProduct extends StatefulWidget {
+  const AllProduct({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AllProduct> createState() => _AllProductState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AllProductState extends State<AllProduct> {
   late TextEditingController searchController;
   // final List<ProductModel> featuredProducts = [
   //   ProductModel(
@@ -207,24 +207,24 @@ class _HomePageState extends State<HomePage> {
   //     ),
   //   ),
   // ];
-  final List<String> banners1 = [
-    Assets.images.banner1.path,
-    Assets.images.banner1.path,
-  ];
-  final List<String> banners2 = [
-    Assets.images.banner2.path,
-    Assets.images.banner2.path,
-    Assets.images.banner2.path,
-  ];
+  // final List<String> banners1 = [
+  //   Assets.images.banner1.path,
+  //   Assets.images.banner1.path,
+  // ];
+  // final List<String> banners2 = [
+  //   Assets.images.banner2.path,
+  //   Assets.images.banner2.path,
+  //   Assets.images.banner2.path,
+  // ];
 
   @override
   void initState() {
     searchController = TextEditingController();
     context.read<AllProductBloc>().add(const AllProductEvent.getAllProducts());
-    context.read<BestSellerProductBloc>().add(BestSellerProductEvent.getBestSellerProducts());
-    context
-        .read<SpecialOfferProductBloc>()
-        .add(const SpecialOfferProductEvent.getSpecialOfferProducts());
+    // context.read<BestSellerProductBloc>().add(BestSellerProductEvent.getBestSellerProducts());
+    // context
+    //     .read<SpecialOfferProductBloc>()
+    //     .add(const SpecialOfferProductEvent.getSpecialOfferProducts());
     super.initState();
   }
 
@@ -238,12 +238,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('LUXESHOP'),
+        title: const Text('All Product'),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Assets.icons.notification.svg(height: 24.0),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Assets.icons.notification.svg(height: 24.0),
+          // ),
           BlocBuilder<CheckoutBloc, CheckoutState>(
             builder: (context, state) {
               return state.maybeWhen(
@@ -300,24 +300,22 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
-          const SpaceHeight(16.0),
-          BannerSlider(items: banners1),
-          const SpaceHeight(12.0),
-          TitleContent(title: 'Categories', onSeeAllTap: () {}),
+          // const SpaceHeight(16.0),
+          // BannerSlider(items: banners1),
+          // const SpaceHeight(12.0),
+          // TitleContent(title: 'Categories', onSeeAllTap: () {}),
 
-          const SpaceHeight(12.0),
-          const MenuCategories(),
-          const SpaceHeight(50.0),
+          // const SpaceHeight(12.0),
+          // const MenuCategories(),
+          const SpaceHeight(20.0),
           BlocBuilder<AllProductBloc, AllProductState>(
             builder: (context, state) {
               return state.maybeWhen(
                 loaded: (products) {
                   return ProductList(
-                      title: 'Featured Product',
+                      title: '',
                       onSeeAllTap: () {},
-                      items: products.length > 2
-                          ? products.sublist(0, 2)
-                          : products);
+                      items: products);
                 },
                 orElse: () => const SizedBox.shrink(),
                 loading: () => const Center(
@@ -334,30 +332,30 @@ class _HomePageState extends State<HomePage> {
               // );
             },
           ),
-          const SpaceHeight(50.0),
-          BannerSlider(items: banners2),
-          const SpaceHeight(28.0),
-          BlocBuilder<BestSellerProductBloc, BestSellerProductState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                loaded: (products) {
-                  return ProductList(
-                      title: 'Best Sellers',
-                      onSeeAllTap: () {},
-                      items: products.length > 2
-                          ? products.sublist(0, 2)
-                          : products);
-                },
-                orElse: () => const SizedBox.shrink(),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                error: (message) => Center(
-                  child: Text(message),
-                ),
-              );
-            },
-          ),
+          // const SpaceHeight(50.0),
+          // BannerSlider(items: banners2),
+          // const SpaceHeight(28.0),
+          // BlocBuilder<BestSellerProductBloc, BestSellerProductState>(
+          //   builder: (context, state) {
+          //     return state.maybeWhen(
+          //       loaded: (products) {
+          //         return ProductList(
+          //             title: 'Best Sellers',
+          //             onSeeAllTap: () {},
+          //             items: products.length > 2
+          //                 ? products.sublist(0, 2)
+          //                 : products);
+          //       },
+          //       orElse: () => const SizedBox.shrink(),
+          //       loading: () => const Center(
+          //         child: CircularProgressIndicator(),
+          //       ),
+          //       error: (message) => Center(
+          //         child: Text(message),
+          //       ),
+          //     );
+          //   },
+          // ),
           //const SpaceHeight(50.0),
           // // ProductList(
           // //   title: 'New Arrivals',
@@ -370,28 +368,28 @@ class _HomePageState extends State<HomePage> {
           // //   onSeeAllTap: () {},
           // //   items: topRatedProducts,
           // // ),
-          const SpaceHeight(50.0),
-          BlocBuilder<SpecialOfferProductBloc, SpecialOfferProductState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                loaded: (products) {
-                  return ProductList(
-                      title: 'Electronik',
-                      onSeeAllTap: () {},
-                      items: products.length > 2
-                          ? products.sublist(0, 2)
-                          : products);
-                },
-                orElse: () => const SizedBox.shrink(),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                error: (message) => Center(
-                  child: Text(message),
-                ),
-              );
-            },
-          ),
+          // const SpaceHeight(50.0),
+          // BlocBuilder<SpecialOfferProductBloc, SpecialOfferProductState>(
+          //   builder: (context, state) {
+          //     return state.maybeWhen(
+          //       loaded: (products) {
+          //         return ProductList(
+          //             title: 'Electronik',
+          //             onSeeAllTap: () {},
+          //             items: products.length > 2
+          //                 ? products.sublist(0, 2)
+          //                 : products);
+          //       },
+          //       orElse: () => const SizedBox.shrink(),
+          //       loading: () => const Center(
+          //         child: CircularProgressIndicator(),
+          //       ),
+          //       error: (message) => Center(
+          //         child: Text(message),
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );
