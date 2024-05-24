@@ -319,7 +319,12 @@ class _HomePageState extends State<HomePage> {
                 loaded: (products) {
                   return ProductList(
                       title: 'All Product',
-                      onSeeAllTap: () {},
+                      onSeeAllTap: () {
+                        context.pushNamed(
+                          RouteConstants.allProduct,
+                          pathParameters: PathParameters().toMap(),
+                        );
+                      },
                       items: products.length > 2
                           ? products.sublist(0, 2)
                           : products);

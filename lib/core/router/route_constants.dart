@@ -29,6 +29,10 @@ class RouteConstants {
   static const String cart = 'cart';
   static const String cartPath = 'cart';
 
+  /// route for page [AddressAccount]
+  static const String addressAccount = 'address_account';
+  static const String addressAccountPath = 'address_account';
+
   /// route for page [AddressPage]
   static const String address = 'address';
   static const String addressPath = 'address';
@@ -69,6 +73,10 @@ class RouteConstants {
   static const String logout = 'logout';
   static const String logoutPath = 'logout';
 
+  /// route for page [AllProduct]
+  static const String allProduct = 'all_product';
+  static const String allProductPath = 'all_product';
+
   /// route for page [SportPage]
   static const String sport = 'sport';
   static const String sportPath = 'sport';
@@ -77,7 +85,11 @@ class RouteConstants {
   static const String elektronik = 'elektronik';
   static const String elektronikPath = 'elektronik';
 
-  /// route for page [FashionkPage]
+  /// route for page [FashionPage]
   static const String fashion = 'fashion';
-  static const String fashionkPath = 'fashion';
+  static const String fashionPath = 'fashion';
+
+  /// route for page [ProfilPage]
+  static const String profil = 'profil';
+  static const String profilPath = 'profil';
 }

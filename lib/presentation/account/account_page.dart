@@ -26,7 +26,14 @@ class AccountPage extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              context.goNamed(
+                RouteConstants.profil,
+                pathParameters: PathParameters(
+                  rootTab: RootTab.account,
+                ).toMap(),
+              );
+            },
           ),
           ListTile(
             leading: Assets.icons.bag.svg(),
@@ -57,7 +64,7 @@ class AccountPage extends StatelessWidget {
             ),
             onTap: () {
               context.goNamed(
-                RouteConstants.orderList,
+                RouteConstants.addressAccount,
                 pathParameters: PathParameters(
                   rootTab: RootTab.account,
                 ).toMap(),

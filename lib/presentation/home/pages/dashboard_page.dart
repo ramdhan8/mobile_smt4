@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projek/presentation/account/account_page.dart';
 import 'package:projek/presentation/home/pages/all_product.dart';
 import 'package:projek/presentation/home/pages/logout_page.dart';
+import 'package:projek/presentation/order/pages/history_order_page.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/constants/colors.dart';
@@ -31,7 +32,8 @@ class _DashboardPageState extends State<DashboardPage> {
     // const Center(
     //   child: Text('This Page 2'),
     // ),
-    const AllProduct(),
+    //const AllProduct(),
+    const HistoryOrderPage(),
     const AccountPage(),
   ];
 
@@ -77,14 +79,14 @@ class _DashboardPageState extends State<DashboardPage> {
             label: 'ORDER',
           ),
           BottomNavigationBarItem(
-            icon: Assets.icons.search.svg(
+            icon: Assets.icons.bag.svg(
               colorFilter: const ColorFilter.mode(
                 AppColors.grey,
                 BlendMode.srcIn,
               ),
             ),
-            activeIcon: Assets.icons.search.svg(),
-            label: 'EXPLORE',
+            activeIcon: Assets.icons.bag.svg(),
+            label: 'History',
           ),
           
           BottomNavigationBarItem(

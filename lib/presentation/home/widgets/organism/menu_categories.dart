@@ -94,17 +94,17 @@ void _navigateToCategoryPage(Category category) {
     if (category.name == 'Sport') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SportPage()),
+        MaterialPageRoute(builder: (context) => const SportPage()),
       );
     } else if (category.name == 'Electronic') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ElektronikPage()),
+        MaterialPageRoute(builder: (context) => const ElektronikPage()),
       );
     } else if (category.name == 'Fashion') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => FashionPage()),
+        MaterialPageRoute(builder: (context) => const FashionPage()),
       );
     }
   }

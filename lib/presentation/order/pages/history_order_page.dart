@@ -26,7 +26,7 @@ class HistoryOrderPage extends StatefulWidget {
     Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pesanan'),
+        title: const Text('History Pesanan'),
       ),
       body: BlocBuilder<HistoryOrderBloc, HistoryOrderState>(
         builder: (context, state) {

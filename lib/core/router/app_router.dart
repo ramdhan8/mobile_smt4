@@ -1,6 +1,9 @@
 //import 'package:fic12_flutter_starter/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projek/presentation/account/addres_account.dart';
+import 'package:projek/presentation/account/profil_page.dart';
+import 'package:projek/presentation/home/pages/all_product.dart';
 import 'package:projek/presentation/home/pages/elektronik_page.dart';
 import 'package:projek/presentation/home/pages/sport_pages.dart';
 
@@ -89,8 +92,13 @@ class AppRouter {
           ),
           GoRoute(
             name: RouteConstants.sport,
-            path: RouteConstants.sportPath,
+            path: RouteConstants.sportPath, 
             builder: (context, state) => const SportPage(),
+          ),
+          GoRoute(
+            name: RouteConstants.allProduct,
+            path: RouteConstants.allProductPath,
+            builder: (context, state) => const AllProduct(),
           ),
           GoRoute(
             name: RouteConstants.elektronik,
@@ -99,8 +107,18 @@ class AppRouter {
           ),
           GoRoute(
             name: RouteConstants.fashion,
-            path: RouteConstants.fashionkPath,
-            builder: (context, state) => const FashionPage(),
+            path: RouteConstants.fashionPath,
+            builder: (context, state) => const FashionPage(), 
+          ),
+          GoRoute(
+            name: RouteConstants.profil,
+            path: RouteConstants.profilPath,
+            builder: (context, state) =>  ProfilPage(),
+          ),
+          GoRoute(
+            name: RouteConstants.addressAccount,
+            path: RouteConstants.addressAccountPath,
+            builder: (context, state) =>  const AddressAccount(),
           ),
           GoRoute(
               name: RouteConstants.cart,
