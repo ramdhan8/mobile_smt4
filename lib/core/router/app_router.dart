@@ -1,6 +1,8 @@
 //import 'package:fic12_flutter_starter/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projek/presentation/home/pages/elektronik_page.dart';
+import 'package:projek/presentation/home/pages/sport_pages.dart';
 
 import '../../presentation/address/models/address_model.dart';
 import '../../presentation/address/pages/add_address_page.dart';
@@ -9,6 +11,7 @@ import '../../presentation/address/pages/edit_address_page.dart';
 import '../../presentation/auth/pages/login_page.dart';
 import '../../presentation/auth/pages/register_page.dart';
 import '../../presentation/home/pages/dashboard_page.dart';
+import '../../presentation/home/pages/fashion_page.dart';
 import '../../presentation/home/pages/logout_page.dart';
 import '../../presentation/intro/splash_page.dart';
 import '../../presentation/order/pages/cart_page.dart';
@@ -83,6 +86,21 @@ class AppRouter {
             name: RouteConstants.logout,
             path: RouteConstants.logoutPath,
             builder: (context, state) => const LogoutPage(),
+          ),
+          GoRoute(
+            name: RouteConstants.sport,
+            path: RouteConstants.sportPath,
+            builder: (context, state) => const SportPage(),
+          ),
+          GoRoute(
+            name: RouteConstants.elektronik,
+            path: RouteConstants.elektronikPath,
+            builder: (context, state) => const ElektronikPage(),
+          ),
+          GoRoute(
+            name: RouteConstants.fashion,
+            path: RouteConstants.fashionkPath,
+            builder: (context, state) => const FashionPage(),
           ),
           GoRoute(
               name: RouteConstants.cart,

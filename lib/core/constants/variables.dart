@@ -1,13 +1,13 @@
 class Variables {
   
-  //jaringan kos
-  static const String baseUrl = 'http://192.168.0.102:8000';
+  // //jaringan kos
+  // static const String baseUrl = 'http://192.168.0.102:8000';
 
 // //jaringan hostpot
 //   static const String baseUrl = 'http://172.20.10.3:8000';
 
-// //jaringan rsi student
-//   static const String baseUrl = 'http://10.10.4.186:8000';
+//jaringan rsi student
+  static const String baseUrl = 'http://10.10.183.22:8000';
 
   static const String baseUrlImage = '$baseUrl/storage/products/';
 

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projek/presentation/home/pages/elektronik_page.dart';
+import 'package:projek/presentation/home/pages/fashion_page.dart';
+import 'package:projek/presentation/home/pages/sport_pages.dart';
 
 import '../../../../core/core.dart';
 import '../../bloc/category/category_bloc.dart';
@@ -32,7 +35,11 @@ class _MenuCategoriesState extends State<MenuCategories> {
                   child: CategoryButton(
                     imagePath: category.image!,
                     label: category.name!,
-                    onPressed: () {},
+                    onPressed: () {
+                      const SportPage();
+                      const ElektronikPage();
+                      const FashionPage();
+                    },
                   ),
                 ),
               ),
