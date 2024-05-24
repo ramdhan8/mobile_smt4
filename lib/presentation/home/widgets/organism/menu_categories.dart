@@ -5,6 +5,7 @@ import 'package:projek/presentation/home/pages/fashion_page.dart';
 import 'package:projek/presentation/home/pages/sport_pages.dart';
 
 import '../../../../core/core.dart';
+import '../../../../data/models/responses/category_response_model.dart';
 import '../../bloc/category/category_bloc.dart';
 import '../category_button.dart';
 
@@ -36,9 +37,7 @@ class _MenuCategoriesState extends State<MenuCategories> {
                     imagePath: category.image!,
                     label: category.name!,
                     onPressed: () {
-                      const SportPage();
-                      const ElektronikPage();
-                      const FashionPage();
+                      _navigateToCategoryPage(category);
                     },
                   ),
                 ),
@@ -87,5 +86,26 @@ class _MenuCategoriesState extends State<MenuCategories> {
         // );
       },
     );
+  }
+
+
+void _navigateToCategoryPage(Category category) {
+    // Navigate to the corresponding page based on the category
+    if (category.name == 'Sport') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SportPage()),
+      );
+    } else if (category.name == 'Electronic') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ElektronikPage()),
+      );
+    } else if (category.name == 'Fashion') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => FashionPage()),
+      );
+    }
   }
 }
