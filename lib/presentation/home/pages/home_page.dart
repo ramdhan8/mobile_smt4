@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
   // ];
   final List<String> banners1 = [
     Assets.images.banner1.path,
-    Assets.images.banner1.path,
+    Assets.images.banner1a.path,
   ];
   final List<String> banners2 = [
     Assets.images.banner2.path,

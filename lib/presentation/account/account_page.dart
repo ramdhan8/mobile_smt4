@@ -35,24 +35,24 @@ class AccountPage extends StatelessWidget {
               );
             },
           ),
-          ListTile(
-            leading: Assets.icons.bag.svg(),
-            title: const Text(
-              'Pesanan',
-              style: TextStyle(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            onTap: () {
-              context.goNamed(
-                RouteConstants.orderList,
-                pathParameters: PathParameters(
-                  rootTab: RootTab.account,
-                ).toMap(),
-              );
-            },
-          ),
+          // ListTile(
+          //   leading: Assets.icons.bag.svg(),
+          //   title: const Text(
+          //     'Pesanan',
+          //     style: TextStyle(
+          //       color: AppColors.primary,
+          //       fontWeight: FontWeight.w700,
+          //     ),
+          //   ),
+          //   onTap: () {
+          //     context.goNamed(
+          //       RouteConstants.orderList,
+          //       pathParameters: PathParameters(
+          //         rootTab: RootTab.account,
+          //       ).toMap(),
+          //     );
+          //   },
+          // ),
           ListTile(
             leading: Assets.icons.location.svg(),
             title: const Text(
@@ -71,17 +71,19 @@ class AccountPage extends StatelessWidget {
               );
             },
           ),
-          ListTile(
-            leading: Assets.icons.creditcard.svg(),
-            title: const Text(
-              'Pembayaran',
-              style: TextStyle(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            onTap: () {},
-          ),
+
+          // //pembayaran
+          // ListTile(
+          //   leading: Assets.icons.creditcard.svg(),
+          //   title: const Text(
+          //     'Pembayaran',
+          //     style: TextStyle(
+          //       color: AppColors.primary,
+          //       fontWeight: FontWeight.w700,
+          //     ),
+          //   ),
+          //   onTap: () {},
+          // ),
           BlocConsumer<LogoutBloc, LogoutState>(
             listener: (context, state) {
               state.maybeWhen(

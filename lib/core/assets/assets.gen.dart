@@ -97,6 +97,7 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/banner1.png
   AssetGenImage get banner1 => const AssetGenImage('assets/images/banner1.png');
+  AssetGenImage get banner1a => const AssetGenImage('assets/images/banner1a.png');
 
   /// File path: assets/images/banner2.png
   AssetGenImage get banner2 => const AssetGenImage('assets/images/banner2.png');
